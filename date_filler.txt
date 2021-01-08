@@ -1,0 +1,15 @@
+Attribute VB_Name = "Module1"
+Public Function FindNextSaturday(dte As Date) As Date
+FindNextSaturday = dte + (7 - Weekday(dte))
+End Function
+
+
+Sub Quick_Fill()
+Attribute Quick_Fill.VB_ProcData.VB_Invoke_Func = "t\n14"
+
+    Range("D11:F11").Value = 8
+    Range("E8").Value = FindNextSaturday(Date) + 1
+End Sub
+
+
+

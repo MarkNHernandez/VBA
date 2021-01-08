@@ -1,0 +1,47 @@
+Attribute VB_Name = "Module1"
+Sub Button1_Click()
+
+Dim FilePath    As String
+Dim x           As Integer
+Dim y           As Integer
+Dim srPos       As Integer
+Dim datePos     As Integer
+Dim timePos     As Integer
+Dim zbPos       As Integer
+Dim zcPos       As Integer
+x = Application.InputBox("Enter the number of CSV files", "CSV Count", Type:=1)
+x = x - 1
+
+y = Len(Sheet3.Cells(4, 1)) - 14
+
+For i = 1 To x
+Sheet1.Cells(i, 1).Value = Right(Sheet3.Cells(4, 1), y) & "\" & Right(Sheet3.Cells(i + 6, 1), 43)
+FilePath = Sheets("PartList").Cells(i, 1).Value
+
+
+Open FilePath For Input As #i
+
+Do Until EOF(i)
+    Line Input #i, textline
+    Text = Text & textline
+Loop
+
+Close #i
+
+srPos = InStr(Text, "Part serial number,")
+datePos = InStr(Text, "Date,")
+timePos = InStr(Text, "Time,")
+zbPos = InStr(Text, "Zone B")
+zcPos = InStr(Text, "Zone C")
+
+ActiveSheet.Cells(i + 1, 1).Value = Mid(Text, srPos + 19, 11)
+ActiveSheet.Cells(i + 1, 2).Value = Mid(Text, datePos + 5, 9)
+ActiveSheet.Cells(i + 1, 3).Value = Mid(Text, timePos + 5, 10)
+ActiveSheet.Cells(i + 1, 4).Value = Mid(Text, zbPos + 16, 6)
+ActiveSheet.Cells(i + 1, 5).Value = Mid(Text, zcPos + 16, 6)
+'ActiveSheet.Cells(i + 1, 6).Value = FilePath
+Text = ""
+Next i
+
+
+End Sub

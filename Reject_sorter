@@ -1,0 +1,29 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "Sheet1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Sub sortReject()
+
+Dim b As Variant
+Dim c As Variant
+Dim k As Integer
+
+k = 1
+
+For i = 1 To 10000
+
+b = Sheet1.Cells(i, 4)
+c = Sheet1.Cells(i, 5)
+    If b >= 55 Or c >= 55 Then
+        For j = 1 To 5
+        Sheet2.Cells(k, j).Value = Sheet1.Cells(i, j).Value
+        Next j
+    k = k + 1
+    End If
+Next i
+End Sub
